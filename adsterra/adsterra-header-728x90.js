@@ -1,51 +1,24 @@
 (function(){
-  var key="3e357ca97289a9dc2cbf04c97e13a8fe";
-  var host="windowsvow.com";
-  var width=728, height=90;
+  /* Adsterra slot via jsDelivr-controlled snippet.
+     Update this file in GitHub; pages that include it will reflect changes after CDN refresh. */
+  var key = "3e357ca97289a9dc2cbf04c97e13a8fe";
+  var host = "windowsvow.com";
+  var width = 728, height = 90;
+  var params = {};
 
-  var scr = document.currentScript || (function(){var s=document.getElementsByTagName('script');return s[s.length-1];})();
-  var box = scr && scr.parentElement ? scr.parentElement : null;
-
-  try{
-    if (box && !box.querySelector('[data-adph]')) {
-      var ph = document.createElement('img');
-      ph.setAttribute('alt','');
-      ph.setAttribute('aria-hidden','true');
-      ph.setAttribute('data-adph','1');
-      ph.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
-      ph.style.cssText = 'width:1px;height:1px;position:absolute;opacity:0;pointer-events:none;';
-      box.appendChild(ph);
-    }
-  }catch(e){}
-
-  var prev = window.atOptions;
-  window.atOptions = { key:key, format:"iframe", height:height, width:width, params:{} };
+  // Ensure Adsterra config is set right before loading their script
+  window.atOptions = {
+    key: key,
+    format: "iframe",
+    height: height,
+    width: width,
+    params: params
+  };
 
   var s = document.createElement("script");
-  s.src = "https://" + host + "/" + key + "/invoke.js";
+  s.type = "text/javascript";
   s.async = true;
-  s.referrerPolicy = "no-referrer-when-downgrade";
-
-  function removePh(){
-    try{ var ph = box && box.querySelector('[data-adph]'); if(ph) ph.remove(); }catch(_){}
-  }
-  s.onload = function(){
-    if (box && 'MutationObserver' in window){
-      var mo = new MutationObserver(function(){
-        if (box.querySelector('iframe,ins,object,embed')){ removePh(); mo.disconnect(); }
-      });
-      try{ mo.observe(box, {childList:true, subtree:true}); }catch(_){}
-      setTimeout(function(){ if (box.querySelector('iframe,ins,object,embed')) removePh(); }, 1200);
-    } else {
-      setTimeout(removePh, 1500);
-    }
-    if (typeof prev === "undefined") { try { delete window.atOptions; } catch(e){ window.atOptions = void 0; } }
-    else { window.atOptions = prev; }
-  };
-  s.onerror = function(){
-    if (typeof prev === "undefined") { try { delete window.atOptions; } catch(e){ window.atOptions = void 0; } }
-    else { window.atOptions = prev; }
-  };
-
-  if (scr && scr.parentNode){ scr.after(s); } else { (document.head||document.body||document.documentElement).appendChild(s); }
+  s.src = "https://" + host + "/" + key + "/invoke.js";
+  var ref = document.currentScript || document.getElementsByTagName("script")[0];
+  ref.parentNode.insertBefore(s, ref);
 })();
